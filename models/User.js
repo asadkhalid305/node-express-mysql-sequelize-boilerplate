@@ -1,48 +1,44 @@
-const Sequelize = require('sequelize')
-const db = require('../database/db.js')
+/**
+ * Example schema (Model) creation to understand how sequelize with mysql works
+ */
 
-module.exports = db.sequelize.define(
-  'user',
+/**
+ * import the sequelize package
+ */
+const Sequelize = require('sequelize')
+
+/**
+ * import database connection variable
+ */
+const db = require('../config/database')
+
+/**
+ * defining model for table, named "users"
+ */
+module.exports = db.define(
+  'users',
   {
-    id: {
-      primaryKey: true,
-      type:  Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4
-  },
-    name: {
+    UserID: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    NAME: {
       type: Sequelize.STRING
     },
-    name_ar: {
+    EMAIL: {
       type: Sequelize.STRING
     },
-    username: {
+    PASSWORD: {
       type: Sequelize.STRING
     },
-    email: {
-      type: Sequelize.STRING
-    },
-    password: {
-      type: Sequelize.STRING
-    },
-    client_id: {
-      type: Sequelize.BLOB
-    },
-    created_at: {
-      type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW
-    },
-    updated_at: {
-      type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW
-    },
-    created_by: {
-      type: Sequelize.BLOB
-    },
-    updated_by: {
-      type: Sequelize.BLOB
-    }
   },
   {
     timestamps: false
-  }
+  },
 )
+
+/**
+ * use this model to query into/from mysql
+ * all logic for this model is written in ../controller/user.js 
+ */
