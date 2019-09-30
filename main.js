@@ -37,9 +37,16 @@ const server = Http.createServer(application);
 
 /**
  * 3010 port will be assigned to localhost (you can change port according to your wish)
+ * process.env.PORT will be used in production only
  */
-const port = process.env.PORT || 3010
+const port = 3010 || process.env.PORT
 
+
+/**
+ * establishing connection with mysql
+ * here db came from config/database.js file
+ * db has all configuraition set up already
+*/
 db.authenticate()
     .then(() => {
         /**
@@ -49,7 +56,14 @@ db.authenticate()
         */
         console.log('Connection has been established successfully.');
 
+        /**
+         * all routing is set up in routes.js
+         * we are passing express application object to routes.js
+         */
         Routes(application);
+        /**
+         * server is listening to port
+         */
         server.listen(port, () => {
             console.log(`Server is up and running @${port}`);
         });
@@ -63,13 +77,13 @@ db.authenticate()
 
 /**
  * NOTES
- * import testing1.dll file to phpMyAdmin
+ * import testing1.dll file in phpMyAdmin in order to connect with database or create your own database in phpMyAdmin and see the database.js file in config folder
  * to start server, write "npm start" in console/terminal
 */
 
 /**
  * TIPS
  * You can use mongodb and other databases with same configuration
- * you must have to replace mysql/sequelize native commands to connect with other database
+ * you must have to replace mysql/sequelize native commands to connect with other database e.g. in order to connect with mongodb, use Mongoose instead of sequelize
  * sequelize is very handy tool to work with mysql. Do read its documentation because this application has been configured with sequelize
 */
